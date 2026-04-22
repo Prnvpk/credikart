@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | CREDI-KART</title>
+    <style>
+        /* Professional UI Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fefcf0; /* Light Yellow Background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* The Card Container */
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        /* Branding */
+        .brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a3a5f; /* Deep Blue */
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .brand span {
+            color: #fbc02d; /* Credikart Yellow */
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styling */
+        form {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a3a5f;
+            margin-bottom: 6px;
+            margin-left: 2px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a3a5f;
+            box-shadow: 0 0 0 4px rgba(26, 58, 95, 0.1);
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #1a3a5f; /* Deep Blue */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #122a46;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Links */
+        .footer-text {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer-text a {
+            color: #1a3a5f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="brand">CREDI<span>KART</span></div>
+        <p class="subtitle">Join our financial network</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+
+            <label for="user_type">Select Role</label>
+            <select id="user_type" name="user_type">
+                <option value="shopkeeper">Shopkeeper</option>
+                <option value="customer">Customer</option>
+            </select>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="footer-text">
+            Already have an account? <a href="/">Login</a>
+        </div>
+    </div>
+
+</body>
+</html>

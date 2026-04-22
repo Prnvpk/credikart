@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Dashboard</title>
+    <style>
+        /* Professional Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fefcf0; /* Light Yellow Background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation Bar */
+        nav {
+            background-color: #1a3a5f; /* Deep Blue */
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand span {
+            color: #fbc02d; /* Yellow Kart */
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #fbc02d;
+            color: #1a3a5f;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            width: 90%;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 8px solid #fbc02d; /* Yellow Accent */
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: #666;
+            font-weight: 400;
+            background: #f8f9fa;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-top: 10px;
+            border: 1px solid #eee;
+        }
+
+        /* Grid for future features */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">CREDI<span>KART</span></div>
+        <a href="/logout/" class="logout-btn">Logout</a>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Welcome {{ request.user.username }}</h2>
+
+            {% if request.user.user_type == "shopkeeper" %}
+                <h3>Shopkeeper Dashboard</h3>
+            {% elif request.user.user_type == "customer" %}
+                <h3>Customer Dashboard</h3>
+            {% endif %}
+            </div>
+
+        <div class="dashboard-grid">
+            <div class="feature-box">
+                <p style="color:#1a3a5f; font-weight: bold;">
