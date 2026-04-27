@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Customers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
+        }
+
+        nav {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        .brand span {
+            color: #f0b400;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 24px 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 36px;
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+            border-top: 8px solid #f0b400;
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .summary-chip {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: #eef4fb;
+            color: #1a3a5f;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .message {
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            background: #fff1f2;
+            border: 1px solid #f7c6cc;
+            color: #b42318;
+        }
+
+        .message.success {
+            background: #eef8f1;
+            border: 1px solid #b7e1c1;
+            color: #166534;
+        }
+
+        .customer-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .customer-item {
+            padding: 18px 20px;
+            border: 1px solid #e4e8ee;
+            border-radius: 14px;
+            background: #fbfcfe;
+        }
+
+        .customer-name {
+            color: #1a3a5f;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .customer-phone {
+            color: #5f6b7a;
+            margin-top: 4px;
+        }
+
+        .customer-email {
+            color: #5f6b7a;
+            margin-top: 4px;
+        }
+
+        .link-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+
+        .link-badge.pending {
+            background: #fff8dd;
+            color: #7a5a00;
+        }
+
+        .manual-match {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e4e8ee;
+        }
+
+        .manual-match p {
+            color: #5f6b7a;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .manual-match-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .manual-match-form input {
+            flex: 1 1 240px;
+            padding: 10px 12px;
+            border: 1px solid #d4dce5;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .manual-match-form button {
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: #1a3a5f;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .empty-state {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 10px 14px;
+            background: #1a3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .action-btn.secondary {
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="brand">CREDI<span>KART</span></div>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </nav>
+
+    <main class="container">
+        <section class="card">
+            <h2>Your Customers</h2>
+            <p class="subtitle">View the customers linked to your shopkeeper account.</p>
+            <div class="summary-chip">Total Customers: {{ customers|length }}</div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if customers %}
+                <ul class="customer-list">
+                    {% for customer in customers %}
+                        <li class="customer-item">
+                            <div class="customer-name">{{ customer.name }}</div>
+                            <div class="customer-email">{{ customer.email|default:"No email added" }}</div>
+                            <div class="customer-phone">{{ customer.phone }}</div>
+                            {% if customer.linked_user %}
+                                <div class="link-badge">Linked to customer account: {{ customer.linked_user.username }}</div>
+                            {% elif customer.email %}
+                                <div class="link-badge pending">Waiting for exact email + phone match</div>
+                                <div class="manual-match">
+                                    <p>Manual match: enter the customer's login username to link this record.</p>
+                                    <form method="post" action="{% url 'manual_match_customer' customer.id %}" class="manual-match-form">
+                                        {% csrf_token %}
+                                        <input type="text" name="customer_username" placeholder="Customer username" required>
+                                        <button type="submit">Match Manually</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">No customers added yet.</p>
+            {% endif %}
+
+            <div class="actions">
+                <a href="{% url 'add_customer' %}" class="action-btn">Add New Customer</a>
+                <a href="{% url 'dashboard' %}" class="action-btn secondary">Back to Dashboard</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

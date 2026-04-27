@@ -4,133 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CREDI-KART | Dashboard</title>
+
     <style>
-        /* Professional Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #fefcf0; /* Light Yellow Background */
-            color: #333;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
         }
 
-        /* Top Navigation Bar */
         nav {
-            background-color: #1a3a5f; /* Deep Blue */
+            background-color: #1a3a5f;
             color: white;
-            padding: 15px 30px;
+            padding: 18px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
         }
 
         .brand {
             font-size: 22px;
             font-weight: 800;
-            letter-spacing: 1px;
         }
 
         .brand span {
-            color: #fbc02d; /* Yellow Kart */
+            color: #f0b400;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .nav-link.disabled {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .logout-btn {
-            color: white;
+            background: rgba(255,255,255,0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
             text-decoration: none;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: 0.3s;
+            color: white;
         }
 
-        .logout-btn:hover {
-            background: #fbc02d;
-            color: #1a3a5f;
-        }
-
-        /* Main Container */
         .container {
-            max-width: 1000px;
-            margin: 50px auto;
+            max-width: 1080px;
+            margin: 40px auto;
             padding: 20px;
-            width: 90%;
         }
 
         .welcome-card {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            border-top: 8px solid #fbc02d; /* Yellow Accent */
+            padding: 30px;
+            border-radius: 16px;
+            border-top: 6px solid #f0b400;
+            margin-bottom: 25px;
         }
 
-        h2 {
-            color: #1a3a5f;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            color: #666;
-            font-weight: 400;
-            background: #f8f9fa;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin-top: 10px;
-            border: 1px solid #eee;
-        }
-
-        /* Grid for future features */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
-            margin-top: 30px;
         }
 
         .feature-box {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: transform 0.3s;
         }
 
-        .feature-box:hover {
-            transform: translateY(-5px);
+        .status-note {
+            margin-top: 8px;
+            color: #5f6b7a;
+            line-height: 1.5;
+        }
+
+        .status-chip {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #eef4fb;
+            color: #1a3a5f;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-chip.pending {
+            background: #fff8dd;
+            color: #7a5a00;
+        }
+
+        .credit-list {
+            list-style: none;
+            margin-top: 14px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .credit-item {
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #fbfcfe;
+            border: 1px solid #e4e8ee;
+        }
+
+        .credit-item strong {
+            color: #1a3a5f;
+        }
+
+        .credit-meta {
+            margin-top: 4px;
+            color: #5f6b7a;
+            font-size: 14px;
+        }
+
+        .feature-title {
+            color: #1a3a5f;
+            margin-bottom: 10px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #1a3a5f;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
         }
     </style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="brand">CREDI<span>KART</span></div>
-        <a href="/logout/" class="logout-btn">Logout</a>
-    </nav>
+<nav>
+    <div class="brand">CREDI<span>KART</span></div>
 
-    <div class="container">
-        <div class="welcome-card">
-            <h2>Welcome {{ request.user.username }}</h2>
+    <div class="nav-right">
+        <a href="{% url 'dashboard' %}" class="nav-link">Home</a>
 
-            {% if request.user.user_type == "shopkeeper" %}
-                <h3>Shopkeeper Dashboard</h3>
-            {% elif request.user.user_type == "customer" %}
-                <h3>Customer Dashboard</h3>
+        {% if user_type == "shopkeeper" %}
+        <a href="{% url 'customer_list' %}" class="nav-link">Customers</a>
+        <a href="{% url 'credit_list' %}" class="nav-link">Credits</a>
+        {% elif user_type == "customer" %}
+        <a href="{% url 'credit_list' %}" class="nav-link">Credits</a>
+        {% endif %}
+
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!-- Welcome -->
+    <section class="welcome-card">
+        <h2>Welcome, {{ request.user.username }}</h2>
+        <p>Manage customers, credits, and payments from one place.</p>
+    </section>
+
+    <!-- Features -->
+    <section class="dashboard-grid">
+
+        <article class="feature-box">
+            <h3 class="feature-title">Account</h3>
+            <p>Role: {{ user_type }}</p>
+        </article>
+
+        {% if user_type == "shopkeeper" %}
+        <article class="feature-box">
+            <h3 class="feature-title">Customer Management</h3>
+            <a href="{% url 'add_customer' %}" class="action-btn">Add</a>
+            <a href="{% url 'customer_list' %}" class="action-btn">View</a>
+        </article>
+
+        <article class="feature-box">
+            <h3 class="feature-title">Credit System</h3>
+            <a href="{% url 'add_credit' %}" class="action-btn">Add Credit</a>
+            <a href="{% url 'credit_list' %}" class="action-btn">View Credits</a>
+        </article>
+        {% elif user_type == "customer" %}
+        <article class="feature-box">
+            <h3 class="feature-title">Your Credits</h3>
+            <p>View the credit entries linked to your account.</p>
+            {% if customer_credit_count %}
+            <p class="status-note">Total records: {{ customer_credit_count }}</p>
+            <div class="status-chip">Total amount: Rs. {{ customer_total_credit }}</div>
+            {% else %}
+            <p class="status-note">No shopkeeper-added credit records are linked yet.</p>
             {% endif %}
-            </div>
+            <a href="{% url 'credit_list' %}" class="action-btn">View Credits</a>
+        </article>
 
-        <div class="dashboard-grid">
-            <div class="feature-box">
-                <p style="color:#1a3a5f; font-weight: bold;">
+        <article class="feature-box">
+            <h3 class="feature-title">Profile Match</h3>
+            <p class="status-note">{{ match_status }}</p>
+            {% if linked_customer_count %}
+            <div class="status-chip">Matched Records: {{ linked_customer_count }}</div>
+            {% else %}
+            <div class="status-chip pending">Waiting for exact email + phone match</div>
+            {% endif %}
+        </article>
+
+        <article class="feature-box">
+            <h3 class="feature-title">Recent Credit Updates</h3>
+            {% if recent_customer_credits %}
+            <ul class="credit-list">
+                {% for credit in recent_customer_credits %}
+                <li class="credit-item">
+                    <strong>{{ credit.customer.name }}</strong>
+                    <div class="credit-meta">Amount: Rs. {{ credit.amount }} | Due: {{ credit.due_date }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="status-note">Recent credit entries will appear here after your account is linked.</p>
+            {% endif %}
+        </article>
+        {% endif %}
+
+        <article class="feature-box">
+            <h3 class="feature-title">Next Step</h3>
+            <p>Track payments and due amounts.</p>
+        </article>
+
+        <article class="feature-box">
+            <h3 class="feature-title">Security</h3>
+            <p>Only logged-in users can access this dashboard.</p>
+        </article>
+
+    </section>
+
+</main>
+
+</body>
+</html>

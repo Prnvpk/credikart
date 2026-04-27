@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Add Customer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
+        }
+
+        nav {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        .brand span {
+            color: #f0b400;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 0 24px 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 36px;
+            border-radius: 18px;
+            border-top: 8px solid #f0b400;
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border: 1px solid #d4dce5;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #1a3a5f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 95, 0.12);
+        }
+
+        .error-state {
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: #fff1f2;
+            color: #b42318;
+            border: 1px solid #f7c6cc;
+            margin-bottom: 18px;
+        }
+
+        button {
+            background: #1a3a5f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #142c49;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .action-link {
+            display: inline-block;
+            padding: 10px 14px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="brand">CREDI<span>KART</span></div>
+    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+</nav>
+
+<main class="container">
+    <div class="card">
+        <h2>Add Customer</h2>
+        <p class="subtitle">Create a customer record so you can manage their credit details later. If the email and phone number both match a customer login, the account will be linked automatically.</p>
+
+        {% if error_message %}
+            <div class="error-state">{{ error_message }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Customer Name" value="{{ form_data.name|default:'' }}" required>
+            <input type="email" name="email" placeholder="Email Address" value="{{ form_data.email|default:'' }}" required>
+            <input type="text" name="phone" placeholder="Phone Number" value="{{ form_data.phone|default:'' }}" required>
+            <button type="submit">Add Customer</button>
+        </form>
+
+        <div class="actions">
+            <a href="{% url 'customer_list' %}" class="action-link">View Customers</a>
+            <a href="{% url 'dashboard' %}" class="action-link">Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

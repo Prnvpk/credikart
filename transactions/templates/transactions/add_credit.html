@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Add Credit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
+        }
+
+        nav {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        .brand span {
+            color: #f0b400;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 40px auto;
+            padding: 0 24px 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 36px;
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+            border-top: 8px solid #f0b400;
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a3a5f;
+            font-weight: 700;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d7deea;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #fbfcfe;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #1a3a5f;
+            box-shadow: 0 0 0 4px rgba(26, 58, 95, 0.08);
+        }
+
+        .empty-state {
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff8dd;
+            color: #7a5a00;
+            margin-bottom: 24px;
+        }
+
+        .error-state {
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: #fff1f2;
+            color: #b42318;
+            border: 1px solid #f7c6cc;
+            margin-bottom: 20px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 12px 18px;
+            border: none;
+            background: #1a3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .action-btn.secondary {
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="brand">CREDI<span>KART</span></div>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </nav>
+
+    <main class="container">
+        <section class="card">
+            <h2>Add Credit</h2>
+            <p class="subtitle">Create a new credit entry for one of your customers and track the due date.</p>
+
+            {% if customers %}
+                {% if error_message %}
+                    <div class="error-state">{{ error_message }}</div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="field-group">
+                        <label for="customer">Select Customer</label>
+                        <select name="customer" id="customer" required>
+                            {% for c in customers %}
+                                <option value="{{ c.id }}" {% if form_data.customer == c.id|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" name="amount" id="amount" step="0.01" min="0" placeholder="Enter credit amount" value="{{ form_data.amount|default:'' }}" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="due_date">Due Date</label>
+                        <input type="date" name="due_date" id="due_date" max="{{ today }}" value="{{ form_data.due_date|default:'' }}" required>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="action-btn">Save Credit</button>
+                        <a href="{% url 'credit_list' %}" class="action-btn secondary">View Credits</a>
+                    </div>
+                </form>
+            {% else %}
+                <p class="empty-state">Add a customer first before creating a credit entry.</p>
+                <div class="actions">
+                    <a href="{% url 'add_customer' %}" class="action-btn">Add Customer</a>
+                    <a href="{% url 'dashboard' %}" class="action-btn secondary">Back to Dashboard</a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
