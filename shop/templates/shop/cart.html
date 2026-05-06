@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Cart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
+        }
+
+        nav {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: #f0b400;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 40px auto;
+            padding: 0 24px 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 36px;
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+            border-top: 8px solid #f0b400;
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .summary-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .summary-chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #eef4fb;
+            color: #1a3a5f;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .message {
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            background: #fff1f2;
+            border: 1px solid #f7c6cc;
+            color: #b42318;
+        }
+
+        .message.success {
+            background: #eef8f1;
+            border: 1px solid #b7e1c1;
+            color: #166534;
+        }
+
+        .cart-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .cart-item {
+            padding: 18px 20px;
+            border: 1px solid #e4e8ee;
+            border-radius: 14px;
+            background: #fbfcfe;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            color: #1a3a5f;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .item-meta {
+            color: #5f6b7a;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .item-summary {
+            min-width: 220px;
+            display: grid;
+            gap: 8px;
+            align-content: start;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: #1a3a5f;
+            font-weight: 700;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #fff1f2;
+            color: #b42318;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .empty-state {
+            color: #5f6b7a;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 10px 14px;
+            background: #1a3a5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .action-btn.secondary {
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="brand">CREDI<span>KART</span></div>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </nav>
+
+    <main class="container">
+        <section class="card">
+            <h2>Your Cart</h2>
+            <p class="subtitle">Review your selected products before continuing to the payment page.</p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="summary-bar">
+                <div class="summary-chip">Items: {{ total_quantity }}</div>
+                <div class="summary-chip">Cart Total: Rs. {{ total_amount }}</div>
+            </div>
+
+            {% if cart_items %}
+                <ul class="cart-list">
+                    {% for item in cart_items %}
+                        <li class="cart-item">
+                            <div>
+                                <div class="item-title">{{ item.product.name }}</div>
+                                <div class="item-meta">
+                                    Shopkeeper: {{ item.product.shopkeeper.username }}<br>
+                                    Price: Rs. {{ item.product.price }}<br>
+                                    Quantity: {{ item.quantity }}
+                                </div>
+                            </div>
+                            <div class="item-summary">
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span>Rs. {{ item.subtotal }}</span>
+                                </div>
+                                <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="remove-btn">Remove</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Your cart is empty. Add products first, then come back here to continue to payment.</p>
+            {% endif %}
+
+            <div class="actions">
+                <a href="{% url 'product_list' %}" class="action-btn secondary">Continue Shopping</a>
+                {% if cart_items %}
+                    <a href="{% url 'payment_page' %}" class="action-btn">Go to Payment</a>
+                {% endif %}
+                <a href="{% url 'dashboard' %}" class="action-btn secondary">Back to Dashboard</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

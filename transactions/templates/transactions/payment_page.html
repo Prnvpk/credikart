@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDI-KART | Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.16), transparent 30%),
+                linear-gradient(180deg, #fefcf0 0%, #f6f1dd 100%);
+            color: #1f2937;
+        }
+
+        nav {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: #f0b400;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1020px;
+            margin: 40px auto;
+            padding: 0 24px 32px;
+        }
+
+        .shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 34px;
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+            border-top: 8px solid #f0b400;
+        }
+
+        h2 {
+            color: #1a3a5f;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #5f6b7a;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .purchase-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+
+        .purchase-item {
+            padding: 18px 20px;
+            border: 1px solid #e4e8ee;
+            border-radius: 14px;
+            background: #fbfcfe;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            color: #1a3a5f;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .item-meta {
+            color: #5f6b7a;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .item-total {
+            color: #166534;
+            font-size: 18px;
+            font-weight: 800;
+            align-self: center;
+        }
+
+        .summary-panel {
+            display: grid;
+            gap: 14px;
+        }
+
+        .summary-box {
+            padding: 18px 20px;
+            border-radius: 14px;
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .summary-copy {
+            margin-top: 8px;
+            color: #5f6b7a;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .paylater-box {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #e4e8ee;
+        }
+
+        .paylater-box h3 {
+            color: #1a3a5f;
+            margin-bottom: 10px;
+        }
+
+        .paylater-box p {
+            color: #5f6b7a;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .action-btn,
+        .paylater-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .paylater-btn {
+            border: none;
+            background: #1a3a5f;
+            color: white;
+            cursor: pointer;
+        }
+
+        .action-btn {
+            margin-top: 10px;
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+
+        @media (max-width: 860px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="brand">CREDI<span>KART</span></div>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </nav>
+
+    <main class="container">
+        <section class="shell">
+            <div class="card">
+                <h2>Payment Review</h2>
+                <p class="subtitle">Check your items and choose how you want to continue. For now, you can save this purchase with the Pay Later option.</p>
+
+                <ul class="purchase-list">
+                    {% for item in cart_items %}
+                        <li class="purchase-item">
+                            <div>
+                                <div class="item-title">{{ item.product.name }}</div>
+                                <div class="item-meta">
+                                    Shopkeeper: {{ item.product.shopkeeper.username }}<br>
+                                    Quantity: {{ item.quantity }}<br>
+                                    Price per item: Rs. {{ item.product.price }}
+                                </div>
+                            </div>
+                            <div class="item-total">Rs. {{ item.subtotal }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="summary-panel">
+                <div class="summary-box">
+                    <div class="summary-label">Order Total</div>
+                    <div class="summary-value">Rs. {{ total_amount }}</div>
+                    <p class="summary-copy">{{ total_quantity }} item(s) will be moved into your credit record when you choose Pay Later.</p>
+                </div>
+
+                <div class="paylater-box">
+                    <h3>Pay Later</h3>
+                    <p>Use this option to create a credit entry. The amount will appear in your Credits page with paid amount and current balance.</p>
+                    <form method="post" action="{% url 'pay_later' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="paylater-btn">Pay Later</button>
+                    </form>
+                    <a href="{% url 'cart_view' %}" class="action-btn">Back to Cart</a>
+                    <a href="{% url 'credit_list' %}" class="action-btn">View Credits</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

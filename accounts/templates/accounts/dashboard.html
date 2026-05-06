@@ -87,9 +87,331 @@
             margin-bottom: 25px;
         }
 
+        .welcome-card.customer-home {
+            background:
+                linear-gradient(135deg, rgba(26, 58, 95, 0.98), rgba(26, 58, 95, 0.9)),
+                linear-gradient(135deg, rgba(240, 180, 0, 0.18), rgba(240, 180, 0, 0));
+            color: white;
+            border-top: none;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 18px 42px rgba(26, 58, 95, 0.18);
+        }
+
+        .welcome-card.customer-home::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            right: -70px;
+            top: -70px;
+            border-radius: 50%;
+            background: rgba(240, 180, 0, 0.18);
+        }
+
+        .hero-copy,
+        .hero-stats {
+            position: relative;
+            z-index: 1;
+        }
+
+        .customer-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.9fr);
+            gap: 22px;
+            align-items: center;
+        }
+
+        .hero-copy h2 {
+            font-size: 34px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .hero-copy p {
+            color: rgba(255, 255, 255, 0.84);
+            line-height: 1.7;
+            max-width: 60ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hero-btn.primary {
+            background: #f0b400;
+            color: #1a3a5f;
+        }
+
+        .hero-btn.secondary {
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-stats {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 20px;
+            border-radius: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: 10px;
+        }
+
+        .hero-stat-value {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .hero-stat-note {
+            color: rgba(255,255,255,0.84);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .customer-layout {
+            display: grid;
+            gap: 24px;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.78);
+            box-shadow: 0 16px 40px rgba(26, 58, 95, 0.08);
+            border-radius: 22px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            color: #1a3a5f;
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            color: #5f6b7a;
+            line-height: 1.6;
+        }
+
+        .section-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #eef4fb;
+            color: #1a3a5f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .quick-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .quick-tile {
+            padding: 18px;
+            border-radius: 18px;
+            background: white;
+            border: 1px solid #e7edf4;
+        }
+
+        .quick-tile h4 {
+            color: #1a3a5f;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .quick-value {
+            color: #166534;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .quick-note {
+            margin-top: 8px;
+            color: #5f6b7a;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+            padding: 16px;
+            border-radius: 20px;
+            background: white;
+            border: 1px solid #e5ebf2;
+            box-shadow: 0 12px 26px rgba(26, 58, 95, 0.08);
+        }
+
+        .product-visual {
+            height: 120px;
+            margin-bottom: 14px;
+            border-radius: 16px;
+            background:
+                radial-gradient(circle at top left, rgba(240, 180, 0, 0.34), transparent 36%),
+                linear-gradient(135deg, rgba(26, 58, 95, 0.14), rgba(26, 58, 95, 0.04)),
+                #f8fafc;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 12px;
+        }
+
+        .product-visual.has-image {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .product-visual.has-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(26, 58, 95, 0.08), rgba(26, 58, 95, 0.45));
+        }
+
+        .product-visual.has-image > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-badge,
+        .stock-pill {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .product-badge {
+            background: rgba(255,255,255,0.92);
+            color: #1a3a5f;
+        }
+
+        .stock-pill {
+            background: #eef8f1;
+            color: #166534;
+        }
+
+        .stock-pill.low {
+            background: #fff4e5;
+            color: #b45309;
+        }
+
+        .product-name {
+            color: #1a3a5f;
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .product-meta {
+            margin-top: 8px;
+            color: #5f6b7a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .product-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .product-price {
+            color: #166534;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 16px;
+        }
+
+        .product-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .product-btn.primary {
+            border: none;
+            background: #1a3a5f;
+            color: white;
+            cursor: pointer;
+        }
+
+        .product-btn.secondary {
+            background: #fff4cc;
+            color: #7a5a00;
+        }
+
+        .wide-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
             gap: 20px;
         }
 
@@ -159,6 +481,22 @@
             border-radius: 6px;
             text-decoration: none;
         }
+
+        .empty-panel {
+            padding: 24px;
+            border-radius: 18px;
+            background: white;
+            border: 1px dashed #d7e0ea;
+            color: #5f6b7a;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 860px) {
+            .customer-hero,
+            .wide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -172,8 +510,11 @@
 
         {% if user_type == "shopkeeper" %}
         <a href="{% url 'customer_list' %}" class="nav-link">Customers</a>
+        <a href="{% url 'product_list' %}" class="nav-link">Products</a>
         <a href="{% url 'credit_list' %}" class="nav-link">Credits</a>
         {% elif user_type == "customer" %}
+        <a href="{% url 'product_list' %}" class="nav-link">Products</a>
+        <a href="{% url 'cart_view' %}" class="nav-link">Cart</a>
         <a href="{% url 'credit_list' %}" class="nav-link">Credits</a>
         {% endif %}
 
@@ -184,20 +525,36 @@
 <main class="container">
 
     <!-- Welcome -->
-    <section class="welcome-card">
+    <section class="welcome-card {% if user_type == 'customer' %}customer-home{% endif %}">
+        {% if user_type == "customer" %}
+        <div class="customer-hero">
+            <div class="hero-copy">
+                <h2>Fast shopping, easy credit, one clean home page.</h2>
+                <p>Browse products directly from home, add items to your cart in one tap, and use Pay Later when you want the amount to move into your credit account.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'product_list' %}" class="hero-btn primary">Browse All Products</a>
+                    <a href="{% url 'cart_view' %}" class="hero-btn secondary">Open Cart</a>
+                    <a href="{% url 'payment_page' %}" class="hero-btn secondary">Payment Page</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat-label">Quick Snapshot</div>
+                <div class="hero-stat-value">{{ featured_product_count }}</div>
+                <div class="hero-stat-note">Products are ready on your home page right now. Cart items: {{ cart_item_count }}. {% if customer_remaining_credit %}Current due: Rs. {{ customer_remaining_credit }}.{% else %}Your credit is currently clear.{% endif %}</div>
+            </div>
+        </div>
+        {% else %}
         <h2>Welcome, {{ request.user.username }}</h2>
         <p>Manage customers, credits, and payments from one place.</p>
+        {% endif %}
     </section>
 
-    <!-- Features -->
+    {% if user_type == "shopkeeper" %}
     <section class="dashboard-grid">
-
         <article class="feature-box">
             <h3 class="feature-title">Account</h3>
             <p>Role: {{ user_type }}</p>
         </article>
-
-        {% if user_type == "shopkeeper" %}
         <article class="feature-box">
             <h3 class="feature-title">Customer Management</h3>
             <a href="{% url 'add_customer' %}" class="action-btn">Add</a>
@@ -209,45 +566,13 @@
             <a href="{% url 'add_credit' %}" class="action-btn">Add Credit</a>
             <a href="{% url 'credit_list' %}" class="action-btn">View Credits</a>
         </article>
-        {% elif user_type == "customer" %}
-        <article class="feature-box">
-            <h3 class="feature-title">Your Credits</h3>
-            <p>View the credit entries linked to your account.</p>
-            {% if customer_credit_count %}
-            <p class="status-note">Total records: {{ customer_credit_count }}</p>
-            <div class="status-chip">Total amount: Rs. {{ customer_total_credit }}</div>
-            {% else %}
-            <p class="status-note">No shopkeeper-added credit records are linked yet.</p>
-            {% endif %}
-            <a href="{% url 'credit_list' %}" class="action-btn">View Credits</a>
-        </article>
 
         <article class="feature-box">
-            <h3 class="feature-title">Profile Match</h3>
-            <p class="status-note">{{ match_status }}</p>
-            {% if linked_customer_count %}
-            <div class="status-chip">Matched Records: {{ linked_customer_count }}</div>
-            {% else %}
-            <div class="status-chip pending">Waiting for exact email + phone match</div>
-            {% endif %}
+            <h3 class="feature-title">Product Management</h3>
+            <p class="status-note">Add products now so they are ready for purchases and credit tracking later.</p>
+            <a href="{% url 'add_product' %}" class="action-btn">Add Product</a>
+            <a href="{% url 'product_list' %}" class="action-btn">View Products</a>
         </article>
-
-        <article class="feature-box">
-            <h3 class="feature-title">Recent Credit Updates</h3>
-            {% if recent_customer_credits %}
-            <ul class="credit-list">
-                {% for credit in recent_customer_credits %}
-                <li class="credit-item">
-                    <strong>{{ credit.customer.name }}</strong>
-                    <div class="credit-meta">Amount: Rs. {{ credit.amount }} | Due: {{ credit.due_date }}</div>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p class="status-note">Recent credit entries will appear here after your account is linked.</p>
-            {% endif %}
-        </article>
-        {% endif %}
 
         <article class="feature-box">
             <h3 class="feature-title">Next Step</h3>
@@ -258,8 +583,160 @@
             <h3 class="feature-title">Security</h3>
             <p>Only logged-in users can access this dashboard.</p>
         </article>
-
     </section>
+    {% elif user_type == "customer" %}
+    <section class="customer-layout">
+        <section class="section-card">
+            <div class="section-head">
+                <div>
+                    <h3 class="section-title">Quick Grocery Picks</h3>
+                    <p class="section-subtitle">A home feed inspired by quick-commerce apps, so customers can start shopping immediately after login.</p>
+                </div>
+                <a href="{% url 'product_list' %}" class="section-link">See Full Catalog</a>
+            </div>
+
+            {% if featured_products %}
+            <div class="product-grid">
+                {% for product in featured_products %}
+                <article class="product-card">
+                    <div
+                        class="product-visual{% if product.image %} has-image{% endif %}"
+                        {% if product.image %}
+                            style="background-image: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02)), url('{{ product.image.url }}');"
+                        {% endif %}
+                    >
+                        <div class="product-badge">Fast Pick</div>
+                        <div class="stock-pill {% if product.stock_quantity <= 5 %}low{% endif %}">
+                            {% if product.stock_quantity > 5 %}In Stock{% else %}Low Stock{% endif %}
+                        </div>
+                    </div>
+                    <div class="product-name">{{ product.name }}</div>
+                    <div class="product-meta">
+                        Sold by {{ product.shopkeeper.username }}<br>
+                        {{ product.description|default:"Fresh product ready for your next pay-later order."|truncatechars:70 }}
+                    </div>
+                    <div class="product-price-row">
+                        <div class="product-price">Rs. {{ product.price }}</div>
+                        <div class="credit-meta">{{ product.stock_quantity }} left</div>
+                    </div>
+                    <div class="product-actions">
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="product-btn primary">Add to Cart</button>
+                        </form>
+                        <a href="{% url 'cart_view' %}" class="product-btn secondary">View Cart</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-panel">No products are available yet. Once shopkeepers add stock, this home page will start showing quick shopping cards here.</div>
+            {% endif %}
+        </section>
+
+        <section class="section-card">
+            <div class="section-head">
+                <div>
+                    <h3 class="section-title">Quick Summary</h3>
+                    <p class="section-subtitle">Important things the customer should understand at a glance.</p>
+                </div>
+            </div>
+            <div class="quick-strip">
+                <article class="quick-tile">
+                    <h4>Cart</h4>
+                    <div class="quick-value">{{ cart_item_count }}</div>
+                    <p class="quick-note">Items waiting for checkout.</p>
+                </article>
+                <article class="quick-tile">
+                    <h4>Current Due</h4>
+                    <div class="quick-value">Rs. {{ customer_remaining_credit }}</div>
+                    <p class="quick-note">{% if customer_remaining_credit %}Outstanding credit from pay-later purchases.{% else %}No pending due right now.{% endif %}</p>
+                </article>
+                <article class="quick-tile">
+                    <h4>Paid Amount</h4>
+                    <div class="quick-value">Rs. {{ customer_paid_credit }}</div>
+                    <p class="quick-note">Total paid back against credit.</p>
+                </article>
+                <article class="quick-tile">
+                    <h4>Matched Shops</h4>
+                    <div class="quick-value">{{ linked_customer_count }}</div>
+                    <p class="quick-note">{{ match_status }}</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="wide-grid">
+            <section class="section-card">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title">Credit Summary</h3>
+                        <p class="section-subtitle">Track total credit, payments, and your latest pay-later updates.</p>
+                    </div>
+                    <a href="{% url 'credit_list' %}" class="section-link">View Credits</a>
+                </div>
+
+                <div class="quick-strip">
+                    <article class="quick-tile">
+                        <h4>Total Credit</h4>
+                        <div class="quick-value">Rs. {{ customer_total_credit }}</div>
+                        <p class="quick-note">All credit records added to your account.</p>
+                    </article>
+                    <article class="quick-tile">
+                        <h4>Cleared Records</h4>
+                        <div class="quick-value">{{ cleared_credit_count }}</div>
+                        <p class="quick-note">Credits that are already settled.</p>
+                    </article>
+                </div>
+
+                <div style="margin-top: 18px;">
+                    <h4 class="feature-title">Recent Credit Updates</h4>
+                    {% if recent_customer_credits %}
+                    <ul class="credit-list">
+                        {% for credit in recent_customer_credits %}
+                        <li class="credit-item">
+                            <strong>{{ credit.customer.name }}</strong>
+                            <div class="credit-meta">
+                                Amount: Rs. {{ credit.amount }} | Paid: Rs. {{ credit.paid_amount }} | Balance: Rs. {{ credit.remaining_amount }}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="status-note">Recent credit entries will appear here after your account is linked.</p>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section class="section-card">
+                <div class="section-head">
+                    <div>
+                        <h3 class="section-title">Checkout Hub</h3>
+                        <p class="section-subtitle">Move between shopping, cart, and pay-later checkout quickly.</p>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <article class="feature-box">
+                        <h3 class="feature-title">Cart and Checkout</h3>
+                        <p class="status-note">Add products to your cart and continue to payment when you are ready.</p>
+                        <div class="status-chip">Items in cart: {{ cart_item_count }}</div>
+                        <a href="{% url 'cart_view' %}" class="action-btn">Open Cart</a>
+                        <a href="{% url 'payment_page' %}" class="action-btn">Payment Page</a>
+                    </article>
+
+                    <article class="feature-box">
+                        <h3 class="feature-title">Account Status</h3>
+                        <p class="status-note">{{ match_status }}</p>
+                        {% if linked_customer_count %}
+                        <div class="status-chip">Matched Records: {{ linked_customer_count }}</div>
+                        {% else %}
+                        <div class="status-chip pending">Waiting for exact email + phone match</div>
+                        {% endif %}
+                    </article>
+                </div>
+            </section>
+        </section>
+    </section>
+    {% endif %}
 
 </main>
 

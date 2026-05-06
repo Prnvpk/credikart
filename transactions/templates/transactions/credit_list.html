@@ -79,12 +79,23 @@
         .summary-chip {
             display: inline-block;
             margin-bottom: 20px;
+            margin-right: 8px;
             padding: 8px 14px;
             border-radius: 999px;
             background: #eef4fb;
             color: #1a3a5f;
             font-size: 13px;
             font-weight: 700;
+        }
+
+        .summary-chip.pending {
+            background: #fff8dd;
+            color: #7a5a00;
+        }
+
+        .summary-chip.success {
+            background: #eef8f1;
+            color: #166534;
         }
 
         .credit-list {
@@ -114,6 +125,7 @@
         .credit-meta {
             color: #5f6b7a;
             margin-top: 4px;
+            line-height: 1.6;
         }
 
         .credit-amount {
@@ -121,6 +133,42 @@
             font-size: 20px;
             font-weight: 800;
             align-self: center;
+        }
+
+        .credit-breakdown {
+            min-width: 220px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: #1a3a5f;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .status-pill {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #eef4fb;
+            color: #1a3a5f;
+        }
+
+        .status-pill.pending {
+            background: #fff8dd;
+            color: #7a5a00;
+        }
+
+        .status-pill.success {
+            background: #eef8f1;
+            color: #166534;
         }
 
         .empty-state {
@@ -164,10 +212,20 @@
                 {% if is_shopkeeper %}
                     Track all credit entries created for customers in your shop.
                 {% else %}
-                    View the credit entries linked to your customer account.
+                    View your pay-later credits, paid amount, and the balance that is still pending.
                 {% endif %}
             </p>
             <div class="summary-chip">Total Credits: {{ credits|length }}</div>
+            <div class="summary-chip">Credit Amount: Rs. {{ total_credit_amount }}</div>
+            <div class="summary-chip">Paid Amount: Rs. {{ total_paid_amount }}</div>
+            <div class="summary-chip {% if total_balance_amount %}pending{% else %}success{% endif %}">
+                {% if total_balance_amount %}
+                    Current Due: Rs. {{ total_balance_amount }}
+                {% else %}
+                    Currently Credit Clear
+                {% endif %}
+            </div>
+            <div class="summary-chip success">Cleared Records: {{ cleared_credit_count }}</div>
 
             {% if credits %}
                 <ul class="credit-list">
@@ -175,9 +233,37 @@
                         <li class="credit-item">
                             <div>
                                 <div class="credit-customer">{{ credit.customer.name }}</div>
-                                <div class="credit-meta">Due date: {{ credit.due_date }} | Added: {{ credit.created_at|date:"M d, Y" }}</div>
+                                <div class="credit-meta">
+                                    Due date: {{ credit.due_date }} | Added: {{ credit.created_at|date:"M d, Y" }}
+                                    {% if credit.customer.shopkeeper %}
+                                        | Shopkeeper: {{ credit.customer.shopkeeper.username }}
+                                    {% endif %}
+                                </div>
+                                {% if credit.details %}
+                                    <div class="credit-meta">Items: {{ credit.details }}</div>
+                                {% endif %}
+                                <div class="status-pill {% if credit.is_cleared %}success{% else %}pending{% endif %}">
+                                    {% if credit.is_cleared %}
+                                        Credit Clear
+                                    {% else %}
+                                        Payment Pending
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class="credit-amount">Rs. {{ credit.amount }}</div>
+                            <div class="credit-breakdown">
+                                <div class="breakdown-row">
+                                    <span>Credit Amount</span>
+                                    <span>Rs. {{ credit.amount }}</span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>Paid Amount</span>
+                                    <span>Rs. {{ credit.paid_amount }}</span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>Current Balance</span>
+                                    <span>Rs. {{ credit.remaining_amount }}</span>
+                                </div>
+                            </div>
                         </li>
                     {% endfor %}
                 </ul>
